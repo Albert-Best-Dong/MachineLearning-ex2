@@ -20,16 +20,15 @@ grad = zeros(size(theta));
 
 z = X*theta;
 tempJ = sum(-y.*log(sigmoid(z))-(1-y).*log(1-sigmoid(z)))/m;
-theta(1) =0;
-reg = lambda*sum(theta.^2)/(2*m);
+temp =theta;
+temp(1) = 0;
+reg = lambda*sum(temp.^2)/(2*m);
 J = tempJ +reg;
-z1= z(1);
-g1=sum((sigmoid(z1)-y).*X(1))/m;
-z(1)=0;
-theta(1)=0;
-thetaTemp =(lambda*theta/m)';
 
-grad  = sum((sigmoid(z)-y).*X)/m+thetaTemp;
+grad = sum((sigmoid(z)-y).*X)/m;
+
+thetaTemp =(lambda*temp/m)';
+grad = grad +thetaTemp;
 
 
 
